@@ -28,28 +28,15 @@ for repo in repos:
 
 sorted_langs = sorted(lang_counts.items(), key=lambda x: x[1], reverse=True)
 
-PARTIALS = " ▏▎▍▌▋▊▉█"
-
-def render_bar(count, max_count, width):
-    exact = (count / max_count) * width
-    full_blocks = int(exact)
-    remainder = exact - full_blocks
-    partial_index = round(remainder * 8)
-    bar = "█" * full_blocks
-    if partial_index > 0 and full_blocks < width:
-        bar += PARTIALS[partial_index]
-        full_blocks += 1
-    bar += "░" * (width - full_blocks)
-    return bar
-
 if sorted_langs:
     max_count = sorted_langs[0][1]
     max_name_len = max(len(lang) for lang, _ in sorted_langs)
-    BAR_WIDTH = 75
+    BAR_WIDTH = 80
 
     lines = ["```text"]
     for lang, count in sorted_langs:
-        bar = render_bar(count, max_count, BAR_WIDTH)
+        bar_len = round((count / max_count) * BAR_WIDTH)
+        bar = "█" * bar_len + "░" * (BAR_WIDTH - bar_len)
         lines.append(f"{lang.ljust(max_name_len)} {bar} {count}")
     lines.append("```")
     table = "\n".join(lines)
