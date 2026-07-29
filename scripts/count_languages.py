@@ -45,7 +45,7 @@ def render_bar(count, max_count, width):
 if sorted_langs:
     max_count = sorted_langs[0][1]
     max_name_len = max(len(lang) for lang, _ in sorted_langs)
-    BAR_WIDTH = 100
+    BAR_WIDTH = 75
 
     lines = ["```text"]
     for lang, count in sorted_langs:
