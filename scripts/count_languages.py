@@ -31,7 +31,7 @@ sorted_langs = sorted(lang_counts.items(), key=lambda x: x[1], reverse=True)
 if sorted_langs:
     max_count = sorted_langs[0][1]
     max_name_len = max(len(lang) for lang, _ in sorted_langs)
-    BAR_WIDTH = 40
+    BAR_WIDTH = 30
 
     lines = ["```text"]
     for lang, count in sorted_langs:
