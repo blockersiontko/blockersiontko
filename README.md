@@ -41,8 +41,8 @@ Brainfuck ██████████░░░░░░░░░░░░░�
 ## STACK
 
 <p>
-<img src="https://img.shields.io/badge/GDScript-478CBF?logo=godotengine&logoColor=white">
 <img src="https://img.shields.io/badge/Godot-478CBF?logo=godotengine&logoColor=white">
+<img src="https://img.shields.io/badge/GDScript-478CBF?logo=godotengine&logoColor=white">
 <img src="https://img.shields.io/badge/Unity-black?logo=unity&logoColor=FFFFFF">
 <img src="https://img.shields.io/badge/C%23-512BD4?logo=codefactor&logoColor=white">
 <img src="https://img.shields.io/badge/Unreal%20Engine-0E1128?logo=unrealengine&logoColor=white">
