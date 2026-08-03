@@ -4,9 +4,10 @@
 
 **Indie Game Development · Beginner Interpreter Crafter**
 
-<p>
-📧 <a href="mailto:blookinewgm1@gmail.com">Email</a>
-</p>
+🫎 [Discord](https://discord.com/users/x_blocky) <br>
+😤 [Steam](https://steamcommunity.com/id/_weeaboo_/) <br>
+🕹️ [itch.io](https://blockersiontko.itch.io/) <br>
+📧 [Email](mailto:blookinewgm1@gmail.com)
 
 ## TOP GAME ENGINES BY REPOS COUNT
 
