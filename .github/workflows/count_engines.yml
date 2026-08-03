@@ -26,7 +26,7 @@ jobs:
       - name: Run engine counter
         env:
           COUNT_LANGUAGES: ${{ secrets.GAME_ENGINES_TOKEN }}
-        run: python scritps/count_engines.py
+        run: python scripts/count_engines.py
 
       - name: Commit and push changes
         run: |
