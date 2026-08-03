@@ -1,31 +1,31 @@
 name: Update README cards
-
 on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     permissions:
       contents: write
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Create profile directory
         run: mkdir -p profile
-
       - name: Generate stats card
         uses: stats-organization/github-readme-stats-action@v2
         with:
           card: stats
           options: username=${{ github.repository_owner }}&show_icons=true
           path: profile/stats.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
+          token: ${{ secrets.COUNT_LANGUAGES }}
+      - name: Generate top-langs card
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: username=${{ github.repository_owner }}&layout=compact&langs_count=10&theme=algolia
+          path: profile/top-langs.svg
+          token: ${{ secrets.COUNT_LANGUAGES }}
       - name: Commit cards
         run: |
           git config user.name "github-actions[bot]"
