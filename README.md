@@ -4,10 +4,14 @@
 
 **Indie Game Development · Beginner Interpreter Crafter**
 
-🫎 [Discord](https://discord.com/users/x_blocky) <br>
-😤 [Steam](https://steamcommunity.com/id/_weeaboo_/) <br>
-🕹️ [itch.io](https://blockersiontko.itch.io/) <br>
-📧 [Email](mailto:blookinewgm1@gmail.com)
+<img src="https://cdn.simpleicons.org/gamejolt/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://backloggd.com/u/blockyyy/">backloggd</a><br>
+<img src="https://cdn.simpleicons.org/letterboxd/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://letterboxd.com/bIocky/">letterboxd</a><br>
+<img src="https://cdn.simpleicons.org/themoviedatabase/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://www.serializd.com/user/blockers/profile">serializd</a><br>
+<img src="https://cdn.simpleicons.org/discord/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://discord.com/users/x_blocky">discord</a><br>
+<img src="https://cdn.simpleicons.org/lastdotfm/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://www.last.fm/user/blocky2116">last.fm</a><br>
+<img src="https://cdn.simpleicons.org/steam/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://steamcommunity.com/id/_weeaboo_/">steam</a><br>
+<img src="https://cdn.simpleicons.org/itchdotio/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://blockersiontko.itch.io/">itch.io</a><br>
+<img src="https://cdn.simpleicons.org/gmail/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="mailto:blookinewgm1@gmail.com">e-mail</a>
 
 ## TOP GAME ENGINES BY REPOS COUNT
 
