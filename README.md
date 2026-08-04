@@ -2,7 +2,7 @@
 
 # blocky
 
-**Indie Game Development · Beginner Interpreter Crafter**
+**🦃 Indie Game Development · 🖥️ Beginner Interpreter Crafter · 📂 Open Source Projects Contributor**
 
 <img src="https://cdn.simpleicons.org/gamejolt/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://backloggd.com/u/blockyyy/">backloggd</a><br>
 <img src="https://cdn.simpleicons.org/letterboxd/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://letterboxd.com/bIocky/">letterboxd</a><br>
@@ -75,5 +75,11 @@ Brainfuck ███░░░░░░░░░░░░░░░░░░░░�
 
 ## STATS
 
+<div align="center">
+
+<p>
 <img src="https://github-stats-extended.vercel.app/api?username=blockersiontko&show_icons=true&disable_animations=true&theme=algolia&cache_seconds=21600" height="165"/>
 <img src="profile/top-langs.svg" height="165"/>
+</p>
+
+</div>
