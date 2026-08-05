@@ -1,6 +1,9 @@
 with open("README.md", "r", encoding="utf-8") as f:
     content = f.read()
 
+with open("profile/username.md", "r", encoding="utf-8") as f:
+    brainfuck_output = f.read()
+
 start = "<!--USERNAME:START-->"
 end = "<!--USERNAME:END-->"
 
