@@ -19,30 +19,38 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /usr/local/emojicode
-          key: emojicode-v1.0-beta.2-linux
+          key: emojicode-v1.0-beta.2-${{ runner.os }}
 
-      - name: Install Emojicode
+      - name: Install Emojicode prerequisites
         run: |
-            sudo apt-get update
-            sudo apt-get install -y libncurses5 rsync
-            wget https://github.com/emojicode/emojicode/releases/download/v1.0-beta.2/Emojicode-1.0-beta.2-Linux-x86_64.tar.gz
-            tar -xzf Emojicode-1.0-beta.2-Linux-x86_64.tar.gz
-            cd Emojicode-1.0-beta.2-Linux-x86_64
-            sudo ./install.sh
+          set -euo pipefail
+          sudo apt-get update
+          # Install modern ncurses and common utilities; libncurses6 + libtinfo6 provide compatibility on Ubuntu 24.04
+          sudo apt-get install -y --no-install-recommends rsync wget tar ca-certificates libncurses6 libtinfo6
+
+      - name: Download and install Emojicode
+        run: |
+          set -euo pipefail
+          wget https://github.com/emojicode/emojicode/releases/download/v1.0-beta.2/Emojicode-1.0-beta.2-Linux-x86_64.tar.gz
+          tar -xzf Emojicode-1.0-beta.2-Linux-x86_64.tar.gz
+          cd Emojicode-1.0-beta.2-Linux-x86_64
+          sudo ./install.sh
 
       - name: Add EmojiCode to PATH
         run: echo "/usr/local/bin" >> $GITHUB_PATH
 
       - name: Compile and run EmojiCode script
         run: |
+          set -euo pipefail
           mkdir -p profile
-          # Kompiluje .🍇 do binarki
+          # Compile .🍇 to binary
           emojicodec scripts/header.🍇 -o profile/header_bin
-          # Uruchamia skompilowaną binarkę i zapisuje output
+          # Run compiled binary and save output
           ./profile/header_bin > profile/header.md
 
       - name: Update README
         run: |
+          set -euo pipefail
           python3 << 'EOF'
           from pathlib import Path
           header = Path("profile/header.md").read_text().strip()
