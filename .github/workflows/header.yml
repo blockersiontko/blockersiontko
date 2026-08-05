@@ -71,10 +71,7 @@ jobs:
           echo "=== Extracted files ==="
           ls -la "$EMOJI_DIR"
 
-          echo "=== Packages inside archive ==="
-          find "$EMOJI_DIR/packages" -maxdepth 2 -type d || true
-
-          echo "=== Install compiler ==="
+          echo "=== Install compiler and packages ==="
 
           sudo mkdir -p /usr/local/include/emojicode
           sudo mkdir -p /usr/local/EmojicodePackages
@@ -96,7 +93,7 @@ jobs:
           echo "=== Installed packages ==="
           ls -la /usr/local/EmojicodePackages
 
-          echo "=== Check standard package s ==="
+          echo "=== Check package s ==="
           ls -la /usr/local/EmojicodePackages/s
 
           echo "=== Binary info ==="
@@ -142,6 +139,58 @@ jobs:
           echo "=== Generated markdown ==="
           cat profile/header.md
 
+      - name: Update README header section
+        run: |
+          set -euxo pipefail
+
+          echo "=== Updating README.md ==="
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          readme = Path("README.md")
+          header = Path("profile/header.md")
+
+          start_marker = "<!-- HEADER:START -->"
+          end_marker = "<!-- HEADER:END -->"
+
+          if not readme.exists():
+              raise SystemExit("README.md not found")
+
+          readme_text = readme.read_text(encoding="utf-8")
+          header_text = header.read_text(encoding="utf-8").strip()
+
+          if start_marker not in readme_text:
+              raise SystemExit(
+                  "Missing <!-- HEADER:START --> in README.md"
+              )
+
+          if end_marker not in readme_text:
+              raise SystemExit(
+                  "Missing <!-- HEADER:END --> in README.md"
+              )
+
+          before, rest = readme_text.split(start_marker, 1)
+          _, after = rest.split(end_marker, 1)
+
+          new_readme = (
+              before
+              + start_marker
+              + "\n\n"
+              + header_text
+              + "\n\n"
+              + end_marker
+              + after
+          )
+
+          readme.write_text(new_readme, encoding="utf-8")
+
+          print("README.md updated successfully")
+          PY
+
+          echo "=== Updated README section ==="
+          sed -n '/HEADER:START/,/HEADER:END/p' README.md
+
       - name: Commit generated header
         run: |
           set -euxo pipefail
@@ -152,7 +201,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add profile/header.md
+          git add README.md profile/header.md
 
           if git diff --cached --quiet; then
             echo "No changes detected"
