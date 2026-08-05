@@ -16,17 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install EmojiCode
+      - name: Install Emojicode
         run: |
-          git clone https://github.com/emojicode/emojicode.git
-          cd emojicode
-          make
-          sudo make install
-          
-      - name: Run EmojiCode
+          curl -fsSL https://www.emojicode.org/install.sh | bash
+
+      - name: Build and run EmojiCode
         run: |
           mkdir -p profile
-          emojicode scripts/header.🍇 > profile/header.md
+          emojicodec scripts/header.🍇
+          ./scripts/header > profile/header.md
 
       - name: Update README
         run: |
