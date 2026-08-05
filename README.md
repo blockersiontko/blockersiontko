@@ -4,6 +4,8 @@
 
 <!-- HEADER:START -->
 
+🦃 Indie Game Development · 🖥️ Beginner Interpreter Crafter · 📂 Open Source Projects Contributor
+
 <!-- HEADER:END -->
 
 <img src="https://cdn.simpleicons.org/gamejolt/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://backloggd.com/u/blockyyy/">backloggd</a><br>
