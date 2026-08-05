@@ -3,9 +3,15 @@ import os
 
 TOKEN = os.environ.get("COUNT_LANGUAGES")
 headers = {"Authorization": f"Bearer {TOKEN}"}
+
 CUSTOM_LANGUAGES = {
     ".🍇": "Emojicode",
     ".emojic": "Emojicode",
+}
+
+IGNORE_LANGUAGES = {
+    "Batchfile",
+    "PowerShell",
 }
 
 def get_github_languages(owner, repo):
@@ -74,7 +80,10 @@ for repo in repos:
             languages[lang] = 1
 
     for lang in languages:
-        lang_counts[lang] = lang_counts.get(lang, 0) + 1
+    if lang in IGNORE_LANGUAGES:
+        continue
+
+    lang_counts[lang] = lang_counts.get(lang, 0) + 1
 
 sorted_langs = sorted(lang_counts.items(), key=lambda x: x[1], reverse=True)
 
