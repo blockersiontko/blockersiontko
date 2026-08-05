@@ -80,10 +80,10 @@ for repo in repos:
             languages[lang] = 1
 
     for lang in languages:
-    if lang in IGNORE_LANGUAGES:
-        continue
+        if lang in IGNORE_LANGUAGES:
+            continue
 
-    lang_counts[lang] = lang_counts.get(lang, 0) + 1
+        lang_counts[lang] = lang_counts.get(lang, 0) + 1
 
 sorted_langs = sorted(lang_counts.items(), key=lambda x: x[1], reverse=True)
 
