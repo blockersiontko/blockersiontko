@@ -22,7 +22,7 @@ jobs:
       - name: Generate username.md
         run: |
           mkdir -p profile
-          brainfuck scripts/username.bf > profile/username.md
+          bfi scripts/username.bf > profile/username.md
 
       - name: Update README.md
         run: |
