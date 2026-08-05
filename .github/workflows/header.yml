@@ -19,14 +19,14 @@ jobs:
       - name: Run EmojiCode
         run: |
           mkdir -p profile
-          emojicode scripts/header.🍇 > profile/header.txt
+          emojicode scripts/header.🍇 > profile/header.md
 
       - name: Update README
         run: |
           python3 << 'EOF'
           from pathlib import Path
 
-          header = Path("profile/header.txt").read_text().strip()
+          header = Path("profile/header.md").read_text().strip()
           readme = Path("README.md").read_text()
 
           start = "<!-- HEADER:START -->"
@@ -44,6 +44,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add README.md profile/HEADER.md
+          git add README.md profile/header.md
           git diff --cached --quiet || git commit -m "Update README header"
           git push
