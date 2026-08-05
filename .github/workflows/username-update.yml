@@ -15,16 +15,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
-      - name: Install brainfuck interpreter
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y bfi
-
+        
       - name: Generate username.md
         run: |
           mkdir -p profile
-          bfi scripts/username.bf > profile/username.md
+          python3 scripts/interpreters/brainfuck_int.py scripts/username.bf > profile/username.md
 
       - name: Update README.md
         run: |
