@@ -16,8 +16,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Brainfuck
-        uses: fabasoad/setup-brainfuck-action@v1.2.1
+      - name: Install brainfuck interpreter
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bfi
 
       - name: Generate username.md
         run: |
