@@ -2,7 +2,9 @@
 
 # blocky
 
-**🦃 Indie Game Development · 🖥️ Beginner Interpreter Crafter · 📂 Open Source Projects Contributor**
+<!-- START:HEADER -->
+
+<!-- END:HEADER -->
 
 <img src="https://cdn.simpleicons.org/gamejolt/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://backloggd.com/u/blockyyy/">backloggd</a><br>
 <img src="https://cdn.simpleicons.org/letterboxd/ffffff" width="16" align="absmiddle">&nbsp;&nbsp;<a href="https://letterboxd.com/bIocky/">letterboxd</a><br>
