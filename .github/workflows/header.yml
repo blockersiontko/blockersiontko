@@ -45,7 +45,8 @@ jobs:
             libtinfo5 \
             libncurses5 \
             file \
-            binutils
+            binutils \
+            xxd
 
           echo "=== Installed packages ==="
           dpkg -l | grep -E "ncurses|tinfo" || true
@@ -65,15 +66,38 @@ jobs:
           echo "=== Extract ==="
           tar -xzf emojicode.tar.gz
 
-          ls -la Emojicode-1.0-beta.2-Linux-x86_64
+          EMOJI_DIR="Emojicode-1.0-beta.2-Linux-x86_64"
 
-          sudo mv Emojicode-1.0-beta.2-Linux-x86_64/emojicodec \
+          echo "=== Extracted files ==="
+          ls -la "$EMOJI_DIR"
+
+          echo "=== Packages inside archive ==="
+          find "$EMOJI_DIR/packages" -maxdepth 2 -type d || true
+
+          echo "=== Install compiler ==="
+
+          sudo mkdir -p /usr/local/include/emojicode
+          sudo mkdir -p /usr/local/EmojicodePackages
+
+          sudo cp "$EMOJI_DIR/emojicodec" \
             /usr/local/bin/emojicodec
+
+          sudo cp -r "$EMOJI_DIR/include/"* \
+            /usr/local/include/emojicode/
+
+          sudo cp -r "$EMOJI_DIR/packages/"* \
+            /usr/local/EmojicodePackages/
 
           sudo chmod +x /usr/local/bin/emojicodec
 
           echo "=== Emojicode location ==="
           which emojicodec
+
+          echo "=== Installed packages ==="
+          ls -la /usr/local/EmojicodePackages
+
+          echo "=== Check standard package s ==="
+          ls -la /usr/local/EmojicodePackages/s
 
           echo "=== Binary info ==="
           file /usr/local/bin/emojicodec
@@ -81,19 +105,20 @@ jobs:
           echo "=== Linked libraries ==="
           ldd /usr/local/bin/emojicodec || true
 
-          echo "=== Required symbols ==="
-          readelf -V /usr/local/bin/emojicodec || true
-
           echo "=== Version ==="
           emojicodec --version || true
 
       - name: Debug source bytes
         run: |
-            echo "=== cat ==="
-            cat scripts/header.🍇
+          set -euxo pipefail
 
-            echo "=== hex ==="
-            xxd scripts/header.🍇
+          echo "=== cat ==="
+          cat scripts/header.🍇
+
+          echo
+
+          echo "=== hex ==="
+          xxd scripts/header.🍇
 
       - name: Compile header
         run: |
