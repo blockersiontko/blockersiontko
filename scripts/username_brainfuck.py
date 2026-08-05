@@ -8,6 +8,7 @@ new_content = (
     content.split(start)[0]
     + start
     + "\n"
+    + "# "
     + brainfuck_output
     + "\n"
     + end
