@@ -37,15 +37,36 @@ jobs:
           sudo ./install.sh
 
       - name: Add EmojiCode to PATH
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
+        run: |
+          # Make sure both potential install locations are on PATH
+          echo "/usr/local/bin" >> $GITHUB_PATH
+          echo "/usr/local/emojicode/bin" >> $GITHUB_PATH
+          echo "/usr/local/emojicode" >> $GITHUB_PATH
+          echo "GITHUB_PATH contents:"
+          cat $GITHUB_PATH
 
       - name: Compile and run EmojiCode script
         run: |
           set -euo pipefail
           mkdir -p profile
-          # Compile .🍇 to binary
-          emojicodec scripts/header.🍇 -o profile/header_bin
-          # Run compiled binary and save output
+          # sanity check where emojicodec is
+          echo "Which emojicodec (if any):"
+          which emojicodec || true
+          emojicodec --version || true
+          # If emojicodec is not found at $PATH, try absolute path where installer typically places it
+          if ! command -v emojicodec >/dev/null 2>&1; then
+            if [ -x /usr/local/emojicode/bin/emojicodec ]; then
+              /usr/local/emojicode/bin/emojicodec scripts/header.🍇 -o profile/header_bin
+            elif [ -x /usr/local/bin/emojicodec ]; then
+              /usr/local/bin/emojicodec scripts/header.🍇 -o profile/header_bin
+            else
+              echo "emojicodec not found; listing /usr/local:"
+              ls -la /usr/local || true
+              exit 1
+            fi
+          else
+            emojicodec scripts/header.🍇 -o profile/header_bin
+          fi
           ./profile/header_bin > profile/header.md
 
       - name: Update README
