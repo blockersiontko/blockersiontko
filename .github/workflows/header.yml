@@ -1,4 +1,5 @@
 name: Update header
+
 on:
   push:
     paths:
@@ -13,26 +14,120 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Install prerequisites
+      - name: System diagnostics
         run: |
-          apt-get update
-          apt-get install -y \
+          set -euxo pipefail
+
+          echo "=== OS ==="
+          cat /etc/os-release
+
+          echo "=== Kernel ==="
+          uname -a
+
+          echo "=== Architecture ==="
+          uname -m
+
+          echo "=== Existing tinfo/ncurses libs ==="
+          ldconfig -p | grep -E "tinfo|ncurses" || true
+
+      - name: Install dependencies
+        run: |
+          set -euxo pipefail
+
+          sudo apt-get update
+
+          sudo apt-get install -y \
             ca-certificates \
             curl \
-            wget \
-            unzip \
-            git \
             libtinfo5 \
-            libncurses5
+            libncurses5 \
+            file \
+            binutils
 
-      - name: Setup Emojicode
-        uses: cjdenio/setup-emojicode@v1.1
-        with:
-          version: "1.0-beta.2"
+          echo "=== Installed packages ==="
+          dpkg -l | grep -E "ncurses|tinfo" || true
 
-      - name: Compile
+      - name: Install Emojicode
         run: |
+          set -euxo pipefail
+
+          echo "=== Download Emojicode ==="
+
+          curl -L \
+            -o emojicode.tar.gz \
+            "https://github.com/emojicode/emojicode/releases/download/v1.0-beta.2/Emojicode-1.0-beta.2-Linux-x86_64.tar.gz"
+
+          ls -lh emojicode.tar.gz
+
+          echo "=== Extract ==="
+          tar -xzf emojicode.tar.gz
+
+          ls -la Emojicode-1.0-beta.2-Linux-x86_64
+
+          sudo mv Emojicode-1.0-beta.2-Linux-x86_64/emojicodec \
+            /usr/local/bin/emojicodec
+
+          sudo chmod +x /usr/local/bin/emojicodec
+
+          echo "=== Emojicode location ==="
+          which emojicodec
+
+          echo "=== Binary info ==="
+          file /usr/local/bin/emojicodec
+
+          echo "=== Linked libraries ==="
+          ldd /usr/local/bin/emojicodec || true
+
+          echo "=== Required symbols ==="
+          readelf -V /usr/local/bin/emojicodec || true
+
+          echo "=== Version ==="
+          emojicodec --version || true
+
+      - name: Compile header
+        run: |
+          set -euxo pipefail
+
+          echo "=== Input file ==="
+          ls -lh scripts/header.🍇
+
+          mkdir -p profile
+
+          echo "=== Compile ==="
           emojicodec scripts/header.🍇 -o profile/header_bin
-          ./profile/header_bin > profile/header.md
+
+          echo "=== Generated binary ==="
+          file profile/header_bin
+          ls -lh profile/header_bin
+
+          echo "=== Run generated program ==="
+          ./profile/header_bin | tee profile/header.md
+
+          echo "=== Generated markdown ==="
+          cat profile/header.md
+
+      - name: Commit generated header
+        run: |
+          set -euxo pipefail
+
+          echo "=== Git status ==="
+          git status
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add profile/header.md
+
+          if git diff --cached --quiet; then
+            echo "No changes detected"
+            exit 0
+          fi
+
+          echo "=== Commit ==="
+          git commit -m "Update header"
+
+          echo "=== Push ==="
+          git push
