@@ -3,6 +3,44 @@ import os
 
 TOKEN = os.environ.get("COUNT_LANGUAGES")
 headers = {"Authorization": f"Bearer {TOKEN}"}
+CUSTOM_LANGUAGES = {
+    ".🍇": "Emojicode",
+    ".emojic": "Emojicode",
+}
+
+def get_github_languages(owner, repo):
+    r = requests.get(
+        f"https://api.github.com/repos/{owner}/{repo}/languages",
+        headers=headers,
+    )
+
+    if r.status_code != 200:
+        return {}
+
+    return r.json()
+
+
+def get_custom_languages(owner, repo, branch):
+    r = requests.get(
+        f"https://api.github.com/repos/{owner}/{repo}/git/trees/{branch}",
+        params={"recursive": 1},
+        headers=headers,
+    )
+
+    data = r.json()
+    result = {}
+
+    if "tree" not in data:
+        return result
+
+    for item in data["tree"]:
+        path = item["path"]
+
+        for ext, language in CUSTOM_LANGUAGES.items():
+            if path.endswith(ext):
+                result[language] = result.get(language, 0) + 1
+
+    return result
 
 repos = []
 page = 1
@@ -19,11 +57,23 @@ while True:
     page += 1
 
 lang_counts = {}
+
 for repo in repos:
     if repo.get("fork"):
         continue
-    lang = repo.get("language")
-    if lang:
+
+    owner = repo["owner"]["login"]
+    name = repo["name"]
+    branch = repo["default_branch"]
+
+    languages = get_github_languages(owner, name)
+    custom = get_custom_languages(owner, name, branch)
+    
+    for lang in custom:
+        if lang not in languages:
+            languages[lang] = 1
+
+    for lang in languages:
         lang_counts[lang] = lang_counts.get(lang, 0) + 1
 
 sorted_langs = sorted(lang_counts.items(), key=lambda x: x[1], reverse=True)
