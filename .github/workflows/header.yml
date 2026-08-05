@@ -11,75 +11,31 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+
+    container:
+      image: ubuntu:18.04
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Install prerequisites
         run: |
-          set -euo pipefail
-          sudo apt-get update
+          apt-get update
+          apt-get install -y \
+            ca-certificates \
+            curl \
+            wget \
+            unzip \
+            git \
+            libtinfo5 \
+            libncurses5
 
-          # Detect which ncurses/tinfo packages are available and install them.
-          pkgs=""
-          for p in libtinfo5 libtinfo6 libncurses5 libncurses6 libncursesw5 libncursesw6 ca-certificates curl wget unzip; do
-            if apt-cache show "$p" >/dev/null 2>&1; then
-              pkgs="$pkgs $p"
-            fi
-          done
-
-          if [ -z "$pkgs" ]; then
-            echo "No matching ncurses/tinfo packages found in APT; proceeding to install common utilities only."
-            sudo apt-get install -y --no-install-recommends ca-certificates curl wget unzip
-          else
-            echo "Installing available packages:$pkgs"
-            sudo apt-get install -y --no-install-recommends $pkgs
-          fi
-
-          # Fallback: if libtinfo.so.5 isn't available, attempt compat symlink from libtinfo.so.6
-          if ! ldconfig -p | grep -q libtinfo.so.5; then
-            echo "libtinfo.so.5 not found; attempting compat symlink from libtinfo.so.6"
-            if ldconfig -p | grep -q libtinfo.so.6; then
-              realpath="$(ldconfig -p | awk '/libtinfo.so.6/ {print $4; exit}')"
-              sudo ln -sf "$realpath" /usr/lib/libtinfo.so.5 || true
-            else
-              echo "libtinfo.so.6 not found either; please check available ncurses packages."
-            fi
-          fi
-
-          # Quick verification (if emojicodec is already present this will show resolved libs)
-          if command -v emojicodec >/dev/null 2>&1; then
-            echo "emojicodec found at: $(command -v emojicodec)"
-            ldd "$(command -v emojicodec)" | grep libtinfo || true
-            emojicodec --version || true
-          fi
-      
       - name: Setup Emojicode
         uses: cjdenio/setup-emojicode@v1.1
         with:
-          version: "1.0-beta.2" # optional — defaults to 1.0-beta.2 if omitted
+          version: "1.0-beta.2"
 
-      - name: Compile and run EmojiCode script
+      - name: Compile
         run: |
-          set -euo pipefail
-          mkdir -p profile
-          echo "Which emojicodec (if any):"
-          which emojicodec || true
-          emojicodec --version || true
-
-          # Try PATH first, then fallback to common absolute locations
-          if command -v emojicodec >/dev/null 2>&1; then
-            emojicodec scripts/header.🍇 -o profile/header_bin
-          elif [ -x /usr/local/emojicode/bin/emojicodec ]; then
-            /usr/local/emojicode/bin/emojicodec scripts/header.🍇 -o profile/header_bin
-          elif [ -x $HOME/.emojicode/bin/emojicodec ]; then
-            $HOME/.emojicode/bin/emojicodec scripts/header.🍇 -o profile/header_bin
-          elif [ -x /usr/local/bin/emojicodec ]; then
-            /usr/local/bin/emojicodec scripts/header.🍇 -o profile/header_bin
-          else
-            echo "emojicodec not found; listing /usr/local and home:"
-            ls -la /usr/local || true
-            ls -la $HOME || true
-            exit 1
-          fi
-
+          emojicodec scripts/header.🍇 -o profile/header_bin
           ./profile/header_bin > profile/header.md
