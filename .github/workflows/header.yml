@@ -87,6 +87,14 @@ jobs:
           echo "=== Version ==="
           emojicodec --version || true
 
+      - name: Debug source bytes
+        run: |
+            echo "=== cat ==="
+            cat scripts/header.🍇
+
+            echo "=== hex ==="
+            xxd scripts/header.🍇
+
       - name: Compile header
         run: |
           set -euxo pipefail
