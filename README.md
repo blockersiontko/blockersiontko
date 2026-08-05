@@ -83,10 +83,9 @@ PowerShell █░░░░░░░░░░░░░░░░░░░░░░
 
 </div>
 
+<div align="center">
 
 ## STATS
-
-<div align="center">
 
 <p>
 <img src="https://github-stats-extended.vercel.app/api?username=blockersiontko&show_icons=true&disable_animations=true&theme=algolia&cache_seconds=21600" height="175"/>
