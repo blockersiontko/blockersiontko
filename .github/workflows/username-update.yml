@@ -1,0 +1,29 @@
+name: Update username
+
+on:
+  push:
+    paths:
+      - "scripts/username.bf"
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Brainfuck
+        uses: fabasoad/setup-brainfuck-action@v1.2.1
+
+      - name: Generate username.md
+        run: |
+          mkdir -p profile
+          brainfuck scripts/username.bf > profile/username.md
+
+      - name: Commit generated file
+        run: |
+        
