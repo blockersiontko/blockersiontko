@@ -4,7 +4,7 @@
 
 <!-- HEADER:START -->
 
-🦃 Indie Game Development · 🖥️ Beginner Interpreter Crafter · 📂 Open Source Projects Contributor
+**🦃 Indie Game Development · 🖥️ Beginner Interpreter Crafter · 📂 Open Source Projects Contributor**
 
 <!-- HEADER:END -->
 
