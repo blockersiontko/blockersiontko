@@ -159,6 +159,7 @@ jobs:
 
           readme_text = readme.read_text(encoding="utf-8")
           header_text = header.read_text(encoding="utf-8").strip()
+          header_text = f"**{header_text}**"
 
           if start_marker not in readme_text:
               raise SystemExit(
