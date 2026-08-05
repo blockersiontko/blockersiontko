@@ -1,0 +1,49 @@
+name: Update README
+
+on:
+  push:
+    paths:
+      - "scripts/header.🍇"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run EmojiCode
+        run: |
+          mkdir -p profile
+          emojicode scripts/header.🍇 > profile/header.txt
+
+      - name: Update README
+        run: |
+          python3 << 'EOF'
+          from pathlib import Path
+
+          header = Path("profile/header.txt").read_text().strip()
+          readme = Path("README.md").read_text()
+
+          start = "<!-- HEADER:START -->"
+          end = "<!-- HEADER:END -->"
+
+          before = readme.split(start)[0]
+          after = readme.split(end)[1]
+
+          new = before + start + "\n" + header + "\n" + end + after
+
+          Path("README.md").write_text(new)
+          EOF
+
+      - name: Commit
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add README.md profile/HEADER.md
+          git diff --cached --quiet || git commit -m "Update README header"
+          git push
