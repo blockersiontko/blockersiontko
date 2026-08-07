@@ -85,7 +85,7 @@ for repo in repos:
 
         lang_counts[lang] = lang_counts.get(lang, 0) + 1
 
-sorted_langs = sorted(lang_counts.items(), key=lambda x: -x[1], x[0])
+sorted_langs = sorted(lang_counts.items(), key=lambda x: (-x[1], x[0]))
 
 if sorted_langs:
     max_count = sorted_langs[0][1]
