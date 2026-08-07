@@ -92,7 +92,7 @@ for repo in repos:
     if matched_engine:
         engine_counts[matched_engine] = engine_counts.get(matched_engine, 0) + 1
 
-sorted_engines = sorted(engine_counts.items(), key=lambda x: x[1], reverse=True)
+sorted_engines = sorted(engine_counts.items(), key=lambda x: (-x[1], x[0]))
 
 if sorted_engines:
     max_count = sorted_engines[0][1]
