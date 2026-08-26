@@ -130,7 +130,7 @@
           data-testid="lang-progress"
           x="0"
           y="0"
-          width="205.15"
+          width="205.32"
           height="8"
           fill="#3572A5"
         />
@@ -138,9 +138,9 @@
         <rect
           mask="url(#rect-mask)"
           data-testid="lang-progress"
-          x="205.15"
+          x="205.32"
           y="0"
-          width="32.63"
+          width="32.51"
           height="8"
           fill="#355570"
         />
@@ -148,9 +148,9 @@
         <rect
           mask="url(#rect-mask)"
           data-testid="lang-progress"
-          x="237.78"
+          x="237.82999999999998"
           y="0"
-          width="15.64"
+          width="15.620000000000001"
           height="8"
           fill="#f34b7d"
         />
@@ -158,9 +158,9 @@
         <rect
           mask="url(#rect-mask)"
           data-testid="lang-progress"
-          x="243.42"
+          x="243.45"
           y="0"
-          width="12.93"
+          width="12.92"
           height="8"
           fill="#178600"
         />
@@ -168,7 +168,7 @@
         <rect
           mask="url(#rect-mask)"
           data-testid="lang-progress"
-          x="246.35"
+          x="246.36999999999998"
           y="0"
           width="11.59"
           height="8"
@@ -178,9 +178,9 @@
         <rect
           mask="url(#rect-mask)"
           data-testid="lang-progress"
-          x="247.94"
+          x="247.95999999999998"
           y="0"
-          width="10.84"
+          width="10.83"
           height="8"
           fill="#E3F171"
         />
@@ -188,9 +188,9 @@
         <rect
           mask="url(#rect-mask)"
           data-testid="lang-progress"
-          x="248.78"
+          x="248.79"
           y="0"
-          width="10.67"
+          width="10.66"
           height="8"
           fill="#C1F12E"
         />
@@ -231,14 +231,14 @@
     <g class="stagger" style="animation-delay: 450ms">
       <circle cx="5" cy="6" r="5" fill="#3572A5" />
       <text data-testid="lang-name" x="15" y="10" class='lang-name'>
-        Python 82.06%
+        Python 82.13%
       </text>
     </g>
   </g><g transform="translate(0, 25)">
     <g class="stagger" style="animation-delay: 600ms">
       <circle cx="5" cy="6" r="5" fill="#355570" />
       <text data-testid="lang-name" x="15" y="10" class='lang-name'>
-        GDScript 13.05%
+        GDScript 13.01%
       </text>
     </g>
   </g><g transform="translate(0, 50)">
